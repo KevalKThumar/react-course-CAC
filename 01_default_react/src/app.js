@@ -1,18 +1,50 @@
+import { useState } from 'react';
+
+
 function App() {
+
+  let [count, setCount] = useState(0)
+
+  function increment() {
+    /**
+        setCount(count = count + 1)
+        setCount(count = count + 1)
+        setCount(count = count + 1) 
+     */
+    // what is the output without run  
+    // ans is : only one increment or decrement because when state wiil be change react pass complate bandal of ui that change together in the user fiber algoritham before this react wiil use vitual DOM in this it will create seprete DOM like window dom and only change will be add in window dom rather than update whole ui or DOM that to see which is update or not their will be a fiber algorithm it is use in git or github also. 
+
+    // what if we run like this only then we use one hidden perameter of useState's method which is accepting one callback function 
+
+    setCount(prevCounter => prevCounter + 1)
+    // setCount(prevCounter => prevCounter + 1)
+    // setCount(prevCounter => prevCounter + 1)
+
+  }
+  function decrement() {
+    /**
+     * setCount(count = count - 1)
+     * setCount(count = count - 1)
+     * setCount(count = count - 1) 
+     */
+    // what is the output without run
+    // ans is : only one increment or decrement because when state wiil be change react pass complate bandal of ui that change together in the user fiber algoritham before this react wiil use vitual DOM in this it will create seprete DOM like window dom and only change will be add in window dom rather than update whole ui or DOM that to see which is update or not their will be a fiber algorithm it is use in git or github also. 
+
+    // what if we run like this only then we use one hidden perameter of useState's method which is accepting one callback function 
+
+    setCount(prevCounter => prevCounter - 1)
+    // setCount(prevCounter => prevCounter - 1)
+    // setCount(prevCounter => prevCounter - 1)
+
+  }
+
   return (
     <>
-      <h1>Chai aur code | Keval Thumar</h1>
-      <h3>
-        1) how to setup React with 2 different Method first is basic npx
-        create-react-app project_name second is npm create vite@letest</h3>
-        <h3> 2) what
-        is vite and why we use it?? Vite is a bundlur for react app its provide
-        au what we require more for devlopment and light weight app. Vite is an
-        open-source tool that helps you build web apps faster. It's built by the
-        same people behind Vue, React, Svelte. Vite is an open source project
-        that aims to provide the best DX and performance by leveraging native ES
-        modules. It's also blazing fast.
-      </h3>
+      <button onClick={increment}>+</button>
+      <h1>
+        {count}
+      </h1>
+      <button onClick={decrement}>-</button>
     </>
   );
 }
