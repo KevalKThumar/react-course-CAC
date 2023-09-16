@@ -2,9 +2,6 @@ import { useState } from "react";
 import "./App.css";
 import useCurrencyinfo from "./hooks/useCurrencyinfo";
 import InputBox from "./component/InputBox";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 function App() {
   // let url = `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currency}.json`;
   const [amount, setAmount] = useState(0);
