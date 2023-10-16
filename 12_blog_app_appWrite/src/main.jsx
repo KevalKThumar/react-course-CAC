@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Protected as AuthLayout, PostForm, Protected } from "./Components";
 import { AllPost, EditPost, Home, Login, Post, Signup } from "./pages/index";
-import store from './Store/Store';
+import store from './store/store';
 
 const router = createBrowserRouter([
   {
