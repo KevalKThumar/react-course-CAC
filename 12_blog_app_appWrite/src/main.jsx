@@ -8,7 +8,8 @@ import { Protected as AuthLayout, PostForm, Protected } from "./Components";
 import { AllPost, EditPost, Home, Login, Post, Signup } from "./pages/index";
 import store from './store/store';
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
   {
     path: "/",
     element: <App />,
