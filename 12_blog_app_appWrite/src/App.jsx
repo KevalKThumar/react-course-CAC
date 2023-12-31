@@ -2,7 +2,7 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import authService from "./Appwrite/Auth";
-import { login, logout } from "./Store/authSlice";
+import { login, logout } from "./store/authSlice";
 import { Container, Footer, Header } from "./Components/index";
 import { Outlet } from "react-router-dom";
 
