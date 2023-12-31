@@ -14,7 +14,7 @@ const Home = () => {
     setIsPost(true);
   }, []);
 
-  if (isPost === false) {
+  if (isPost !== false && posts.length === 0) {
     return (
       <div className="w-full py-8 mt-4 text-center">
         <Container>
@@ -28,7 +28,7 @@ const Home = () => {
         </Container>
       </div>
     );
-  } else if (posts.length === 0) {
+  } else if (isPost === false && posts.length === 0) {
     return (
       <div className="w-full py-8 mt-4 text-center">
         <Container>

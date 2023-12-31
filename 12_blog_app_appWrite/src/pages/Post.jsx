@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import appwriteServices from "../Appwrite/Config";
 import appwriteServicesFile from "../Appwrite/File";
-import {Button,Container} from '../Components'
-import {Link} from 'react-router-dom'
+import { Button, Container } from "../Components";
+import { Link } from "react-router-dom";
 
 const Post = () => {
   const { slug } = useParams();
@@ -43,7 +43,7 @@ const Post = () => {
           <img
             src={appwriteServicesFile.getFilePreview(post.featuredImage)}
             alt={post.title}
-            className="rounded-xl"
+            className="rounded-xl w-2/3 h-3/4 object-cover"
           />
 
           {isAuthor && (
@@ -65,7 +65,19 @@ const Post = () => {
         <div className="browser-css">{parse(post.content)}</div>
       </Container>
     </div>
-  ) : null;
+  ) : (
+    <div className="w-full py-8 mt-4 text-center max-w-7xl mx-auto px-4 ">
+      <Container>
+        <div className="flex flex-wrap">
+          <div className="p-2 w-full">
+            <h1 className="text-2xl font-bold hover:text-gray-500">
+              Loading....
+            </h1>
+          </div>
+        </div>
+      </Container>
+    </div>
+  );
 };
 
 export default Post;
