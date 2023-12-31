@@ -38,16 +38,14 @@ function App() {
       </div>
     </>
   ) : (
-    <div className="w-full py-8 mt-4 text-center">
-      <Container>
-        <div className="flex flex-wrap">
-          <div className="p-2 w-full">
-            <h1 className="text-2xl font-bold hover:text-gray-500">
-              loding...
-            </h1>
-          </div>
-        </div>
-      </Container>
+    <div className="flex justify-center items-center h-screen bg-gray-200">
+      <div className="p-6 rounded-lg">
+        <img
+          className="text-2xl mix-blend-color-burn"
+          src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif"
+        />
+        {/* <h1 className="text-2xl font-bold">Loading...</h1> */}
+      </div>
     </div>
   );
 }

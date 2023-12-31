@@ -12,6 +12,7 @@ export default function PostForm({ post }) {
     useForm({
       defaultValues: {
         title: post?.title || "",
+        category: post?.category || "",
         slug: post?.$id || "",
         content: post?.content || "",
         status: post?.status || "active",
@@ -32,7 +33,7 @@ export default function PostForm({ post }) {
         appwriteServiceFile.deleteFile(post.featuredImage);
       }
 
-      const dbPost = await appwriteService.updatePost(post.$id, {
+      const dbPost = await appwriteService.updxatePost(post.$id, {
         ...data,
         featuredImage: file ? file.$id : undefined,
       });
@@ -77,7 +78,10 @@ export default function PostForm({ post }) {
   }, [watch, slugTransform, setValue]);
 
   return (
-    <form onSubmit={handleSubmit(submit)} className="flex flex-wrap pl-10 pr-10 pt-7">
+    <form
+      onSubmit={handleSubmit(submit)}
+      className="flex flex-wrap pl-10 pr-10 pt-7"
+    >
       <div className="w-2/3 px-2">
         <Input
           label="Title :"
@@ -95,6 +99,12 @@ export default function PostForm({ post }) {
               shouldValidate: true,
             });
           }}
+        />
+        <Input
+          label="Category :"
+          placeholder="Category"
+          className="mb-4"
+          {...register("category", { required: true })}
         />
         <RTE
           label="Content :"
@@ -129,7 +139,7 @@ export default function PostForm({ post }) {
         <Button
           type="submit"
           bgColor={post ? "bg-green-500" : undefined}
-          className="w-96"
+          className="w-96 mt-6"
         >
           {post ? "Update" : "Submit"}
         </Button>
