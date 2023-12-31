@@ -21,48 +21,54 @@ export default function PostForm({ post }) {
 
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
+  const [loading, setLoading] = React.useState(false);
 
   const submit = async (data) => {
-    console.log(data);
-    if (post) {
-      const file = data.image[0]
-        ? await appwriteServiceFile.uploadFile(data.image[0])
-        : null;
+    try {
+      setLoading(true);
+      if (post) {
+        const file = data.image[0]
+          ? await appwriteServiceFile.uploadFile(data.image[0])
+          : null;
 
-      if (file) {
-        appwriteServiceFile.deleteFile(post.featuredImage);
-      }
+        if (file) {
+          appwriteServiceFile.deleteFile(post.featuredImage);
+        }
 
-      const dbPost = await appwriteService.updxatePost(post.$id, {
-        ...data,
-        featuredImage: file ? file.$id : undefined,
-      });
-
-      if (dbPost) {
-        navigate(`/post/${dbPost.$id}`);
-      }
-    } else {
-      const file = await appwriteServiceFile.uploadFile(data.image[0]);
-
-      if (file) {
-        const fileId = file.$id;
-        data.featuredImage = fileId;
-        // console.log({ ...data, userId: userData.$id });
-        const dbPost = await appwriteService.createPost({
+        const dbPost = await appwriteService.updxatePost(post.$id, {
           ...data,
-          userId: userData.$id,
+          featuredImage: file ? file.$id : undefined,
         });
 
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
         }
+      } else {
+        const file = await appwriteServiceFile.uploadFile(data.image[0]);
+
+        if (file) {
+          const fileId = file.$id;
+          data.featuredImage = fileId;
+          // console.log({ ...data, userId: userData.$id });
+          const dbPost = await appwriteService.createPost({
+            ...data,
+            userId: userData.$id,
+          });
+
+          if (dbPost) {
+            navigate(`/post/${dbPost.$id}`);
+          }
+        }
       }
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   const slugTransform = useCallback((value) => {
-    if (value && typeof value === "string")
-      return slugify(value);
+    if (value && typeof value === "string") return slugify(value);
 
     return "";
   }, []);
@@ -141,7 +147,7 @@ export default function PostForm({ post }) {
           bgColor={post ? "bg-green-500" : undefined}
           className="w-96 mt-6"
         >
-          {post ? "Update" : "Submit"}
+          {loading ? "Loading..." : post ? "Update" : "Submit"}
         </Button>
       </div>
     </form>

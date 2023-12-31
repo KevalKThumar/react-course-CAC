@@ -11,9 +11,12 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const login = async (data) => {
     setError("");
     try {
+      setLoading(true);
       const session = await authService.login(data);
       if (session) {
         const userData = await authService.getCurrentUser();
@@ -22,6 +25,9 @@ const Login = () => {
       }
     } catch (error) {
       setError(error.message);
+    }
+    finally {
+      setLoading(false);
     }
   };
 
@@ -65,14 +71,31 @@ const Login = () => {
             />
             <Input
               label="Password: "
-              type="password"
+              type= {showPassword ? "text" : "password"}
               placeholder="Enter your password"
               {...register("password", {
                 required: true,
               })}
             />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id="remember"
+                  name="remember"
+                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                  onChange={() => setShowPassword(!showPassword)}
+                />
+                <label
+                  htmlFor="remember"
+                  className="ml-2 block text-sm text-black/60"
+                >
+                  ShowPassword
+                </label>
+              </div>
+            </div>
             <Button type="submit" className="w-full">
-              Sign in
+              {loading ? "Loading..." : "Sign in"}
             </Button>
           </div>
         </form>

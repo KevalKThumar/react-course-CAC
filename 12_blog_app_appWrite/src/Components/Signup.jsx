@@ -12,10 +12,13 @@ function Signup() {
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const create = async (data) => {
     setError("");
     try {
+      setLoading(true);
       const userData = await authService.createAccount(data);
       if (userData) {
         const userData = await authService.getCurrentUser();
@@ -24,6 +27,9 @@ function Signup() {
       }
     } catch (error) {
       setError(error.message);
+    }
+    finally {
+      setLoading(false);
     }
   };
 
@@ -75,14 +81,32 @@ function Signup() {
             />
             <Input
               label="Password: "
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Enter your password"
               {...register("password", {
                 required: true,
               })}
             />
+            {/* add check box */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id="remember"
+                  name="remember"
+                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                  onChange={() => setShowPassword(!showPassword)}
+                />
+                <label
+                  htmlFor="remember"
+                  className="ml-2 block text-sm text-black/60"
+                >
+                  ShowPassword
+                </label>
+              </div>
+            </div>
             <Button type="submit" className="w-full">
-              Create Account
+              {loading ? "Loading..." : "Create Account"}
             </Button>
           </div>
         </form>
