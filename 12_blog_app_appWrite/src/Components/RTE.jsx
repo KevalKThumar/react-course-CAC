@@ -13,6 +13,7 @@ const RTE = ({ control, name, label, defaultValue = "" }) => {
         control={control}
         render={({ field: { onChange } }) => (
           <Editor
+            apiKey="2v1epovsqjs38pq5ud48s78i3wm2mvzurs612ruljk26a405"
             initialValue={defaultValue}
             init={{
               initialValue: defaultValue,
