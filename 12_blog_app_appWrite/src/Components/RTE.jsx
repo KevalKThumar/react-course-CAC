@@ -1,6 +1,8 @@
 import React from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Controller } from "react-hook-form";
+import conf from '../Config/Conf'
+
 
 // real time editer
 const RTE = ({ control, name, label, defaultValue = "" }) => {
@@ -13,7 +15,7 @@ const RTE = ({ control, name, label, defaultValue = "" }) => {
         control={control}
         render={({ field: { onChange } }) => (
           <Editor
-            apiKey="2v1epovsqjs38pq5ud48s78i3wm2mvzurs612ruljk26a405"
+            apiKey= {conf.appwriteRTEapikey}
             initialValue={defaultValue}
             init={{
               initialValue: defaultValue,
